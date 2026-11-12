@@ -1,0 +1,15 @@
+.app {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  background-color: var(--error);
+  color: white;
+  padding: var(--space-lg);
+  border-radius: 0.5rem;
+  margin: var(--space-lg);
+  text-align: center;
+}
