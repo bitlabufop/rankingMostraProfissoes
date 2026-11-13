@@ -216,9 +216,98 @@ async function fetchRanges(spreadsheetId, apiKey, ranges) {
   return requestJson(url)
 }
 
+function isHttpUrl(value) {
+  return /^https?:\/\/\S+$/i.test(value)
+}
+
+// Converte links de compartilhamento do Google Drive em URLs de imagem exibíveis.
+function toImageUrl(value) {
+  const url = String(value ?? '').trim()
+  if (!isHttpUrl(url)) return ''
+
+  const driveId =
+    url.match(/drive\.google\.com\/file\/d\/([\w-]+)/)?.[1] ||
+    url.match(/drive\.google\.com\/(?:open|uc|thumbnail)\?[^#]*\bid=([\w-]+)/)?.[1]
+
+  return driveId
+    ? `https://drive.google.com/thumbnail?id=${driveId}&sz=w400`
+    : url
+}
+
+const EVENT_FIELDS = {
+  titulo: 'titulo',
+  descricao: 'descricao',
+  local: 'local',
+  data: 'data',
+  como_funciona: 'como_funciona',
+  avisos: 'avisos',
+}
+
+// Lê a aba `dash`: blocos "Equipe" (tabela) e "Evento" (campo/valor).
+// Novas linhas na equipe são aceitas automaticamente até a primeira linha em branco.
+export function parseDashboard(rows) {
+  const event = {}
+  const team = []
+  let section = null
+  let headers = null
+
+  rows.forEach((row = []) => {
+    const cells = row.map((cell) => String(cell ?? '').trim())
+    const isBlank = !cells.some(Boolean)
+    const heading = normalizeHeader(cells[0])
+
+    if (heading === 'equipe' && !cells[1]) {
+      section = 'team'
+      headers = null
+      return
+    }
+    if (heading === 'evento' && !cells[1]) {
+      section = 'event'
+      return
+    }
+    if (isBlank) {
+      if (section === 'team' && headers) section = null
+      return
+    }
+
+    if (section === 'team') {
+      if (!headers) {
+        headers = cells.map(normalizeHeader)
+        return
+      }
+      const get = (field) => cells[headers.indexOf(field)] ?? ''
+      const nome = get('nome')
+      if (!nome) return
+
+      team.push({
+        nome,
+        funcao: get('funcao'),
+        bio: get('bio'),
+        github: isHttpUrl(get('github')) ? get('github') : '',
+        linkedin: isHttpUrl(get('linkedin')) ? get('linkedin') : '',
+        imagem: toImageUrl(get('imagem')),
+      })
+    } else if (section === 'event') {
+      const field = EVENT_FIELDS[normalizeHeader(cells[0])]
+      if (field && cells[1]) event[field] = cells[1]
+    }
+  })
+
+  return { ...event, equipe: team }
+}
+
 export const sheetsService = {
   async fetchEventData() {
-    return null
+    const { spreadsheetId, apiKey } = getCredentials()
+
+    try {
+      const response = await fetchRanges(spreadsheetId, apiKey, ["'dash'!A1:H100"])
+      return parseDashboard(response.valueRanges?.[0]?.values || [])
+    } catch (error) {
+      // A ausência da aba `dash` não deve impedir a exibição dos rankings.
+      console.warn('Não foi possível ler a aba dash:', error)
+      return null
+    }
   },
 
   async fetchModalities() {

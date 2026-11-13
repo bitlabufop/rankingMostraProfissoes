@@ -4,14 +4,35 @@ A planilha terá uma aba geral chamada `dash` e uma aba para cada modalidade. O
 colaborador poderá criar ou excluir abas de modalidade sem manter uma lista
 central de modalidades.
 
-> A aplicação lê as abas `rN` em modo somente leitura. A aba `dash` permanece
-> vazia e reservada para uma etapa futura.
+> A aplicação lê as abas `rN` e `dash` em modo somente leitura.
 
 ## Aba `dash`
 
-A aba `dash` será reservada às informações gerais do evento. Seus campos e
-organização serão definidos posteriormente. Não cadastre modalidades nem
-resultados nela.
+A aba `dash` guarda as informações gerais, em dois blocos identificados pelo
+texto da primeira coluna (`Equipe` e `Evento`). A aplicação lê as colunas A:H
+das primeiras 100 linhas. Não cadastre modalidades nem resultados nela.
+
+### Bloco `Equipe`
+
+Logo abaixo da linha `Equipe`, coloque os cabeçalhos e depois um membro por
+linha. Para aumentar a equipe, basta preencher novas linhas; o bloco termina na
+primeira linha totalmente em branco, e linhas sem `Nome` são ignoradas.
+
+| Cabeçalho | Conteúdo |
+|---|---|
+| `Item` | Número (não é usado pelo site) |
+| `Nome` | Nome exibido (obrigatório) |
+| `Função` | Etiqueta, como `Colaborador` ou `Orientador` |
+| `Bio` | Texto curto |
+| `Github` / `Linkedin` | URLs `http(s)`; vazio oculta o botão |
+| `Imagem` | Link de compartilhamento do Google Drive (arquivo com acesso "qualquer pessoa com o link") ou URL direta; sem imagem, o site mostra as iniciais |
+
+### Bloco `Evento`
+
+Abaixo da linha `Evento`, use uma linha por campo, com o nome na coluna A e o
+valor na coluna B: `Título`, `Descrição`, `Local`, `Data`, `Como funciona` e,
+opcionalmente, `Avisos`. Campos de texto longo aceitam quebras de linha
+(parágrafos), links no formato `[texto](https://...)` e `**negrito**`.
 
 ## Abas de modalidades
 

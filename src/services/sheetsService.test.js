@@ -9,7 +9,7 @@ vi.mock('../config', () => ({
   },
 }))
 
-import sheetsService from './sheetsService'
+import sheetsService, { parseDashboard } from './sheetsService'
 
 const modalityHeaders = [
   'nome',
@@ -147,5 +147,29 @@ describe('sheetsService', () => {
     await expect(sheetsService.fetchModalities()).rejects.toThrow(
       'ordenacao inválida ("aleatorio")',
     )
+  })
+
+  it('lê equipe e evento da aba dash, aceitando novos membros', () => {
+    const data = parseDashboard([
+      ['Equipe'],
+      ['Item', 'Nome', 'Função', 'Bio', 'Github', 'Linkedin', 'Imagem'],
+      ['1', 'Ana Lima', 'Orientadora', 'Bio A', 'https://github.com/ana', '', 'https://drive.google.com/file/d/abc_123/view?usp=sharing'],
+      ['2', 'Bruno', 'Colaborador', 'Bio B', 'javascript:alert(1)'],
+      ['3'],
+      [],
+      ['Evento'],
+      ['Título', 'Mostra'],
+      ['Descrição', 'Linha 1\n\nLinha 2'],
+      ['Como funciona', 'Regras'],
+    ])
+
+    expect(data.equipe.map((member) => member.nome)).toEqual(['Ana Lima', 'Bruno'])
+    expect(data.equipe[0].imagem).toBe(
+      'https://drive.google.com/thumbnail?id=abc_123&sz=w400',
+    )
+    expect(data.equipe[1].github).toBe('')
+    expect(data.titulo).toBe('Mostra')
+    expect(data.descricao).toBe('Linha 1\n\nLinha 2')
+    expect(data.como_funciona).toBe('Regras')
   })
 })

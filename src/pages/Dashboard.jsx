@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import useEventData from '../hooks/useEventData'
 import Header from '../components/Header'
 import EventInfo from '../components/EventInfo'
+import About from '../components/About'
 import ModalityTabs from '../components/ModalityTabs'
 import Ranking from '../components/Ranking'
 import Loading from '../components/Loading'
@@ -49,6 +50,13 @@ export default function Dashboard() {
           >
             ℹ️ Sobre
           </button>
+          <button
+            className={`view-tab ${activeView === 'event' ? 'active' : ''}`}
+            onClick={() => setActiveView('event')}
+            aria-current={activeView === 'event' ? 'page' : undefined}
+          >
+            📅 Evento
+          </button>
         </nav>
 
         {activeView === 'ranking' && modalities.length === 0 ? (
@@ -64,8 +72,10 @@ export default function Dashboard() {
             />
             {selectedModality && <Ranking modality={selectedModality} />}
           </>
-        ) : (
+        ) : activeView === 'event' ? (
           <EventInfo eventData={eventData} />
+        ) : (
+          <About team={eventData?.equipe} />
         )}
       </main>
     </div>

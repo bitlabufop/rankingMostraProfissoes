@@ -33,7 +33,7 @@ Isso gera a pasta `dist/` pronta para o GitHub Pages.
 ## 📊 Leitura da planilha Google Sheets
 
 A aplicação lê em modo somente leitura as abas de modalidade no padrão `r1`,
-`r2` etc. A aba `dash` fica reservada e não é lida nesta etapa. O formato de
+`r2` etc. e a aba `dash` (equipe e informações do evento). O formato de
 cabeçalhos e validações está em `docs/SHEET_STRUCTURE.md`.
 
 ### Configuração local
@@ -94,8 +94,7 @@ Quando tiver tudo pronto:
 ## ❓ Dúvidas?
 
 - Componentes responsivos ✅
-- Leitura das abas `rN` da planilha ✅
-- Aba `dash` reservada para implementação futura
+- Leitura das abas `rN` e `dash` da planilha ✅
 - Atualização manual pelo botão no cabeçalho
 - Design energético e moderno ✅
 

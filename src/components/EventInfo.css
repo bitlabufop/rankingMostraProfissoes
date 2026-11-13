@@ -73,6 +73,7 @@
 }
 
 .info-rules {
+  margin-top: var(--space-lg);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: var(--space-md);
@@ -107,10 +108,8 @@
 
 .community-card {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  grid-template-columns: 1fr;
   gap: var(--space-xl);
-  align-items: center;
-  margin-top: var(--space-2xl);
   padding: var(--space-lg);
   background: linear-gradient(120deg, #0d2038, #0a192d);
   border: 1px solid #1b3859;
@@ -127,9 +126,97 @@
 }
 
 .info-card .community-copy p:not(.section-eyebrow) {
-  margin: 0;
+  margin: 0 0 var(--space-sm);
   font-size: var(--font-size-sm);
   line-height: 1.6;
+  text-align: justify;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-md);
+}
+
+.team-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-md);
+  text-align: center;
+  background: rgba(5, 13, 28, 0.45);
+  border: 1px solid #1b3859;
+  border-radius: 0.5rem;
+}
+
+.team-member img,
+.team-avatar-fallback {
+  width: 96px;
+  height: 96px;
+  margin-bottom: var(--space-sm);
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+}
+
+.team-member img {
+  object-fit: cover;
+}
+
+.team-avatar-fallback {
+  display: grid;
+  place-items: center;
+  color: var(--primary);
+  background: #102b46;
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+}
+
+.event-text a,
+.event-notice a {
+  color: var(--primary);
+}
+
+.info-card .event-text p:last-child,
+.info-card .event-notice p:last-child {
+  margin-bottom: 0;
+}
+
+.info-card .team-member h4 {
+  margin: 0;
+  color: #f2f7ff;
+  font-size: var(--font-size-md, 1rem);
+}
+
+.team-role {
+  margin: var(--space-xs) 0 var(--space-sm);
+  padding: 0.1rem 0.6rem;
+  color: var(--primary);
+  background: #102b46;
+  border-radius: 999px;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+}
+
+.info-card .team-member p {
+  flex: 1;
+  margin: 0 0 var(--space-sm);
+  font-size: var(--font-size-xs);
+  line-height: 1.55;
+}
+
+.team-links {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.team-links a {
+  color: #91a6bf;
+  font-size: var(--font-size-xs);
+  text-decoration: none;
+}
+
+.team-links a:hover {
+  color: var(--primary);
 }
 
 .community-links {
@@ -220,7 +307,6 @@
   .community-card {
     grid-template-columns: 1fr;
     gap: var(--space-md);
-    margin-top: var(--space-xl);
     padding: var(--space-md);
   }
 

@@ -1,33 +1,48 @@
 import './EventInfo.css'
+import RichText from './RichText'
 
 export default function EventInfo({ eventData }) {
+  const hasDetails = eventData?.local || eventData?.data
+
   return (
     <section className="event-info">
       <div className="info-card">
         <p className="section-eyebrow">INFORMAÇÕES DO EVENTO</p>
         <h2>{eventData?.titulo || 'Mostra de Profissões'}</h2>
-        <p>
-          Acompanhe a classificação das competições da Mostra de Profissões.
-          Escolha uma modalidade na aba Ranking para conferir os resultados.
-        </p>
-        <div className="event-details">
-          <div>
-            <span>Área</span>
-            <strong>{eventData?.descricao || '—'}</strong>
+        {eventData?.descricao && (
+          <div className="event-text">
+            <RichText text={eventData.descricao} />
           </div>
-          <div>
-            <span>Local</span>
-            <strong>{eventData?.local || '—'}</strong>
-          </div>
-          <div>
-            <span>Data</span>
-            <strong>{eventData?.data || '—'}</strong>
-          </div>
-        </div>
-        {eventData?.avisos && (
-          <div className="event-notice">{eventData.avisos}</div>
         )}
-        <h3>Como funciona</h3>
+        {hasDetails && (
+          <div className="event-details">
+            {eventData.data && (
+              <div>
+                <span>Data</span>
+                <strong>{eventData.data}</strong>
+              </div>
+            )}
+            {eventData.local && (
+              <div>
+                <span>Local</span>
+                <strong>{eventData.local}</strong>
+              </div>
+            )}
+          </div>
+        )}
+        {eventData?.avisos && (
+          <div className="event-notice">
+            <RichText text={eventData.avisos} />
+          </div>
+        )}
+        {eventData?.como_funciona && (
+          <>
+            <h3>Como funciona</h3>
+            <div className="event-text">
+              <RichText text={eventData.como_funciona} />
+            </div>
+          </>
+        )}
         <div className="info-rules">
           <div className="rule-item">
             <span className="rule-icon">🏆</span>
@@ -51,59 +66,6 @@ export default function EventInfo({ eventData }) {
             </div>
           </div>
         </div>
-        <section className="community-card" aria-labelledby="community-title">
-          <div className="community-copy">
-            <p className="section-eyebrow">EXTENSÃO · UFOP</p>
-            <h3 id="community-title">Tecnologia feita em comunidade</h3>
-            <p>
-              O BitLab é um projeto de extensão do ICEA/UFOP que aproxima
-              engenharia, robótica e tecnologia da comunidade.
-            </p>
-          </div>
-          <nav className="community-links" aria-label="Redes e projetos">
-            <a
-              className="community-link"
-              href="https://github.com/bitlabufop"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="community-icon" aria-hidden="true">
-                {'</>'}
-              </span>
-              <span className="community-link-text">
-                <strong>BitLab no GitHub</strong>
-                <small>Projetos e código</small>
-              </span>
-              <span className="community-arrow" aria-hidden="true">↗</span>
-            </a>
-            <a
-              className="community-link"
-              href="https://www.instagram.com/deelt_ufop/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="community-icon" aria-hidden="true">◎</span>
-              <span className="community-link-text">
-                <strong>DEELT no Instagram</strong>
-                <small>Novidades do departamento</small>
-              </span>
-              <span className="community-arrow" aria-hidden="true">↗</span>
-            </a>
-            <a
-              className="community-link"
-              href="https://www.youtube.com/@deelt_ufop"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="community-icon" aria-hidden="true">▶</span>
-              <span className="community-link-text">
-                <strong>DEELT no YouTube</strong>
-                <small>Vídeos do departamento</small>
-              </span>
-              <span className="community-arrow" aria-hidden="true">↗</span>
-            </a>
-          </nav>
-        </section>
       </div>
     </section>
   )
