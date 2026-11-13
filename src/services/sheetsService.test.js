@@ -20,6 +20,7 @@ const modalityHeaders = [
   'ordenacao',
   'posicao no site',
   'regra_premiacao',
+  'github',
 ]
 
 const jsonResponse = (data) => ({
@@ -63,6 +64,7 @@ describe('sheetsService', () => {
                     'descendente',
                     '2',
                     'Maior pontuação vence',
+                    'https://github.com/bitlabufop/fpgaBomberman',
                   ],
                 ],
               },
@@ -78,6 +80,7 @@ describe('sheetsService', () => {
                     'ascentendente',
                     '1',
                     'Menor tempo vence',
+                    '',
                   ],
                 ],
               },
@@ -90,6 +93,13 @@ describe('sheetsService', () => {
 
     expect(modalities.map((modality) => modality.id)).toEqual(['r1', 'r2'])
     expect(modalities[0].ordenacao).toBe('asc')
+    expect(modalities[1].github).toBe(
+      'https://github.com/bitlabufop/fpgaBomberman',
+    )
+    const requestedRanges = new URL(fetch.mock.calls[1][0]).searchParams.getAll(
+      'ranges',
+    )
+    expect(requestedRanges).toContain("'r2'!A1:I2")
   })
 
   it('lê resultados de tempo e ordena pela duração, não pelo texto', async () => {

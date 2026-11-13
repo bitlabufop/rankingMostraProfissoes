@@ -69,6 +69,16 @@ export default function Ranking({ modality }) {
           {modality.descricao && (
             <p className="ranking-description">{modality.descricao}</p>
           )}
+          {modality.github && (
+            <a
+              className="ranking-project-link"
+              href={modality.github}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ver o projeto no GitHub ↗
+            </a>
+          )}
           <p className="ranking-info">
             {modality.regra_premiacao} • Resultados em {modality.unidade}
           </p>

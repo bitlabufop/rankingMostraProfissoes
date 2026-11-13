@@ -43,6 +43,7 @@ cabeçalhos nem mude a posição das linhas):
 | `ordenacao` | **`ascendente`** ou **`descendente`** (ver abaixo) |
 | `posicao no site` | Número de exibição; **não pode repetir** entre abas |
 | `regra_premiacao` | Texto curto, como "Menor tempo vence" |
+| `github` | Link do projeto no GitHub, em `I2`; aparece para os alunos no ranking |
 
 **Linha 3** — cabeçalhos dos resultados. **A partir da linha 4**, um
 participante por linha:

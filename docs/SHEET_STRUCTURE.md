@@ -56,6 +56,10 @@ Nas linhas 1 e 2, informe os campos da modalidade e seus valores:
 | F | `ordenacao` | `ascendente` ou `descendente` | Obrigatório |
 | G | `posicao no site` | Número de exibição | Número único |
 | H | `regra_premiacao` | Regra resumida, como “Menor tempo vence” | Obrigatório |
+| I | `github` | Link para o repositório ou projeto da modalidade | URL `https` ou vazio |
+
+Quando preenchido em `I2`, o link do GitHub aparece para os alunos no cabeçalho
+do ranking da modalidade.
 
 `ascendente` significa que o menor resultado fica primeiro; `descendente`
 significa que o maior resultado fica primeiro. Use `ascendente` para tempos em

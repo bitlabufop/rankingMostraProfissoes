@@ -116,6 +116,7 @@ function parseModality(title, rows) {
     'regra_premiacao',
     errors,
   )
+  const github = getMetadataValue(headers, values, 'github', errors, false)
 
   if (tipoResultado && !['tempo', 'pontos'].includes(tipoResultado)) {
     errors.push(`tipo_resultado inválido ("${tipoResultado}")`)
@@ -150,6 +151,7 @@ function parseModality(title, rows) {
     ordenacao,
     posicao,
     regra_premiacao: regraPremiacao,
+    github: isHttpUrl(github) ? github : '',
   }
 }
 
@@ -323,7 +325,7 @@ export const sheetsService = {
 
     if (sheetNames.length === 0) return []
 
-    const ranges = sheetNames.map((name) => `'${name}'!A1:H2`)
+    const ranges = sheetNames.map((name) => `'${name}'!A1:I2`)
     const response = await fetchRanges(spreadsheetId, apiKey, ranges)
     const modalities = []
     const modalityErrors = []
