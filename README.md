@@ -187,3 +187,4 @@ Requisitos do projeto: [github.md](./github.md).
 ## 📄 Licença
 
 MIT
+
