@@ -141,8 +141,14 @@ O deploy é automático a cada push na `main`, pelo workflow
 
 1. Em **Settings > Secrets and variables > Actions**, crie o segredo
    `GOOGLE_API_KEY` com a chave da API.
-2. Permita `https://bitlabufop.github.io/*` nos referenciadores da chave.
-3. O site fica em `https://bitlabufop.github.io/rankingMostraProfissoes/`.
+2. Faça push na `main`. O workflow cria a branch `gh-pages` com o build.
+3. Em **Settings > Pages**, defina *Source* como **Deploy from a branch**, branch
+   **`gh-pages`** e pasta **`/ (root)`**. Só é preciso fazer isso uma vez.
+4. Permita `https://bitlabufop.github.io/*` nos referenciadores da chave.
+5. O site fica em `https://bitlabufop.github.io/rankingMostraProfissoes/`.
+
+Se o site não aparecer, abra a aba **Actions** do repositório e confira se a
+execução terminou com sucesso.
 
 ### Usar em outro evento
 
