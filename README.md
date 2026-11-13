@@ -36,8 +36,8 @@ cabeçalhos nem mude a posição das linhas):
 | Cabeçalho | O que preencher |
 |---|---|
 | `nome` | Nome exibido |
-| `descricao` | Descrição curta |
-| `Imagem` | URL da imagem (opcional) |
+| `descricao` | Descrição curta, exibida no topo do ranking |
+| `Imagem` | Link do Google Drive (acesso "qualquer pessoa com o link") ou URL direta; opcional, exibida no topo do ranking |
 | `tipo_resultado` | **`tempo`** ou **`pontos`** (ver abaixo) |
 | `unidade` | Unidade mostrada ao lado do resultado, como `s` ou `pt` |
 | `ordenacao` | **`ascendente`** ou **`descendente`** (ver abaixo) |

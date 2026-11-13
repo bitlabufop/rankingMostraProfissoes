@@ -6,6 +6,11 @@ export default function Ranking({ modality }) {
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [imageFailed, setImageFailed] = useState(false)
+
+  useEffect(() => {
+    setImageFailed(false)
+  }, [modality])
 
   useEffect(() => {
     let active = true
@@ -50,10 +55,24 @@ export default function Ranking({ modality }) {
   return (
     <section className="ranking">
       <div className="ranking-header">
-        <h2>Classificação - {modality.nome}</h2>
-        <p className="ranking-info">
-          {modality.regra_premiacao} • Resultados em {modality.unidade}
-        </p>
+        {modality.imagem && !imageFailed && (
+          <img
+            className="ranking-image"
+            src={modality.imagem}
+            alt={`Imagem da modalidade ${modality.nome}`}
+            referrerPolicy="no-referrer"
+            onError={() => setImageFailed(true)}
+          />
+        )}
+        <div className="ranking-header-text">
+          <h2>Classificação - {modality.nome}</h2>
+          {modality.descricao && (
+            <p className="ranking-description">{modality.descricao}</p>
+          )}
+          <p className="ranking-info">
+            {modality.regra_premiacao} • Resultados em {modality.unidade}
+          </p>
+        </div>
       </div>
 
       {results.length === 0 ? (
@@ -85,6 +104,11 @@ export default function Ranking({ modality }) {
               </div>
               <div className="col-name">
                 <strong>{result.nome_participante}</strong>
+                {(result.escola || result.cidade) && (
+                  <span className="name-meta">
+                    {[result.escola, result.cidade].filter(Boolean).join(' · ')}
+                  </span>
+                )}
               </div>
               <div className="col-school">{result.escola}</div>
               <div className="col-city">{result.cidade}</div>

@@ -144,7 +144,7 @@ function parseModality(title, rows) {
     sheetName: title,
     nome,
     descricao,
-    imagem,
+    imagem: toImageUrl(imagem),
     tipo_resultado: tipoResultado,
     unidade,
     ordenacao,
@@ -188,8 +188,12 @@ function parseNumericResult(value, modality, rowNumber) {
   const number = Number(normalized)
 
   if (!text || !Number.isFinite(number)) {
+    const hint =
+      text.includes(':') && modality.tipo_resultado !== 'tempo'
+        ? ' Para valores como 1:31:00, defina tipo_resultado como "tempo" na linha 2 da aba.'
+        : ''
     throw new Error(
-      `Aba "${modality.sheetName}", linha ${rowNumber}: resultado inválido ("${text}").`,
+      `Aba "${modality.sheetName}", linha ${rowNumber}: resultado inválido ("${text}").${hint}`,
     )
   }
 
