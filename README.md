@@ -1,5 +1,7 @@
 # Ranking Mostra de Profissões
 
+🔗 **Site publicado:** https://bitlabufop.github.io/rankingMostraProfissoes/
+
 Site de acompanhamento de rankings de jogos e desafios em eventos, mantido pelo
 [BitLab](https://github.com/bitlabufop) (ICEA/UFOP). Todo o conteúdo — equipe,
 informações do evento, modalidades e resultados — vem de uma **planilha Google
